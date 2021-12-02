@@ -10,7 +10,7 @@ Home Screen          | Error Alert    | Save Alert |  Delete Popup
 <img height = "50%" src="https://github.com/indiedanish/Discount-App/blob/main/1%20(2).jpeg" /> | <img height = "50%" src="https://github.com/indiedanish/Discount-App/blob/main/2%20(2).jpeg" /> | <img height = "50%" src="https://github.com/indiedanish/Discount-App/blob/main/3%20(2).jpeg" /> | <img height = "50%" src="https://github.com/indiedanish/Discount-App/blob/main/4.jpeg" />
 
 ## 🔑 LICENSE
-- This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details
+- This project is licensed under the MIT License - see the [LICENSE](https://github.com/indiedanish/Discount-App/blob/main/LICENSE) file for details
 
 ## 🧑 Author
 
