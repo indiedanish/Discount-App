@@ -327,7 +327,7 @@ function History({ route, navigation }) {
         behavior={Platform.OS == "ios" ? "padding" : "height"}
         keyboardVerticalOffset={Platform.OS == "ios" ? 0 : 20}
         enabled={Platform.OS === "ios" ? true : false}
-        style={{ height: 300, width: 412 , marginBottom:380}}
+        style={{ height: 300, width: 412 , marginBottom:340}}
       >
         <DataTable>
           <DataTable.Header style={{ borderWidth: 0.5 }}>
@@ -337,7 +337,7 @@ function History({ route, navigation }) {
           </DataTable.Header>
 
           <FlatList
-            style={{  borderBottomLeftRadius:50, borderBottomRightRadius:50, height: 600, width: 412, backgroundColor: "white" }}
+            style={{  borderBottomLeftRadius:50, borderBottomRightRadius:50, height: 570, width: 412, backgroundColor: "white" }}
             data={tempHistory}
             renderItem={({ item, index }) => {
               if (item != undefined) {
@@ -366,6 +366,8 @@ function History({ route, navigation }) {
       
         
       </KeyboardAvoidingView>
+      
+      <Text style={{ marginBottom:20 , fontSize:12, color:'orange', borderWidth:1, borderRadius:15, padding:7, borderColor: "orange"}}>Tap to delete any record</Text>
       <TouchableOpacity
             onPress={() => {
               setHistory([]);
@@ -395,6 +397,7 @@ function History({ route, navigation }) {
               Clear
             </Text>
           </TouchableOpacity>
+
 
     
     </View>
