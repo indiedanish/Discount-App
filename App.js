@@ -2,9 +2,10 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { useFonts } from "expo-font";
 
-import AppLoading from 'expo-app-loading';
+import AppLoading from "expo-app-loading";
 
 import { DataTable } from "react-native-paper";
+
 import {
   StyleSheet,
   TextInput,
@@ -25,30 +26,29 @@ function isLetter(str) {
   else return true;
 }
 
-
 <Text
-onPress={() =>
-  navigation.navigate("History", {
-    historyTemp: history,
-    historyObj: { history, setHistory },
-  })
-}
-style={{
-  borderWidth: 2,
-  marginTop: 40,
-  padding: 10,
-  color: "white",
-  borderColor: "black",
-  backgroundColor: "#e89302",
-  borderRadius: 15,
-  fontSize: 15,
-  fontFamily: "Raleway",
-  width: 300,
-  textAlign: "center",
-}}
+  onPress={() =>
+    navigation.navigate("History", {
+      historyTemp: history,
+      historyObj: { history, setHistory },
+    })
+  }
+  style={{
+    borderWidth: 2,
+    marginTop: 40,
+    padding: 10,
+    color: "white",
+    borderColor: "black",
+    backgroundColor: "#e89302",
+    borderRadius: 15,
+    fontSize: 15,
+    fontFamily: "Raleway",
+    width: 300,
+    textAlign: "center",
+  }}
 >
-History
-</Text>
+  History
+</Text>;
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -68,8 +68,6 @@ export default function App() {
               fontFamily: "Raleway",
             },
           }}
-
-
         />
 
         <Stack.Screen
@@ -92,36 +90,35 @@ export default function App() {
 }
 
 function HomeScreen({ navigation }) {
-
-    React.useLayoutEffect(() => {
+  React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
- <TouchableOpacity
+        <TouchableOpacity
           style={{
-            backgroundColor: 'black',
-            
+            backgroundColor: "black",
+
             width: 90,
             height: 35,
             borderRadius: 15,
-            justifyContent: 'center',
+            justifyContent: "center",
             marginTop: 10,
             padding: 5,
-
-
           }}
           activeOpacity={0.5}
-          onPress={() => navigation.navigate("History", {
-            historyTemp: history,
-            historyObj: { history, setHistory },
-          })}
-               
+          onPress={() =>
+            navigation.navigate("History", {
+              historyTemp: history,
+              historyObj: { history, setHistory },
+            })
+          }
         >
-          <Text
-            style={{ fontSize: 14, color: 'white', alignSelf: 'center', }}
-          >History</Text>
-        </TouchableOpacity>      ),
+          <Text style={{ fontSize: 14, color: "white", alignSelf: "center" }}>
+            History
+          </Text>
+        </TouchableOpacity>
+      ),
     });
-  }, );
+  });
   const [price, setPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [discountedPrice, setDiscountedPrice] = useState(0);
@@ -140,200 +137,193 @@ function HomeScreen({ navigation }) {
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {
+    return (
+      <>
+        {fontsLoaded}
 
-    
+        <Modal animationType="fade" transparent={true} visible={modalVisible}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Result Saved in History :)</Text>
+              <View style={{ paddingTop: 20 }} />
+              <TouchableOpacity
+                style={[styles.modalBtn, { backgroundColor: "#e89302" }]}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <Text style={{ color: "white" }}>OK</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
 
-  return (
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={Platform.OS == "ios" ? 0 : 20}
+          enabled={Platform.OS === "ios" ? true : false}
+        >
+          <Text
+            style={{
+              fontSize: 40,
+              margin: 30,
+              color: "white",
+              fontFamily: "KaushanScript",
+            }}
+          >
+            Save Discounts
+          </Text>
 
+          <Text style={styles.calculatedText}>
+            {" "}
+            You Saved{" "}
+            <Text style={{ color: "white" }}>
+              {" "}
+              Rs:{" "}
+              {buttonPressed === true
+                ? parseFloat((price - discountedPrice).toFixed(4))
+                : "0.00"}{" "}
+            </Text>
+          </Text>
 
-    <>
-      {fontsLoaded}
+          <Text style={styles.calculatedText}>
+            {" "}
+            Final Price{" "}
+            <Text style={{ color: "orange" }}>
+              {" "}
+              Rs:{" "}
+              {buttonPressed === true
+                ? parseFloat(discountedPrice.toFixed(4))
+                : "0.00"}{" "}
+            </Text>
+          </Text>
 
-      <Modal animationType="fade" transparent={true} visible={modalVisible}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Result Saved in History :)</Text>
-            <View style={{ paddingTop: 20 }} />
-            <TouchableOpacity
-              style={[styles.modalBtn, { backgroundColor: "#e89302" }]}
-              onPress={() => {
-                setModalVisible(!modalVisible);
+          <TextInput
+            placeholder="Original Price "
+            placeholderTextColor="#c4c4c4"
+            style={{
+              fontFamily: "Raleway",
+              color: "white",
+              padding: 10,
+              paddingLeft: 20,
+              marginTop: 40,
+              borderWidth: 2,
+              width: 300,
+              marginBottom: 20,
+              borderRadius: 20,
+              fontSize: 15,
+              borderColor: "white",
+            }}
+            onChangeText={(value) => {
+              setPrice(value);
+              setError("");
+              setButtonPressed(false);
+              return;
+            }}
+          ></TextInput>
+          <TextInput
+            placeholder="Discount %"
+            placeholderTextColor="#c4c4c4"
+            style={{
+              fontFamily: "Raleway",
+              color: "white",
+              padding: 10,
+              paddingLeft: 20,
+              borderWidth: 2,
+              width: 300,
+              borderRadius: 20,
+              fontSize: 15,
+              borderColor: "white",
+            }}
+            onChangeText={(value) => {
+              setDiscount(value);
+              setButtonPressed(false);
+              setError("");
+              return;
+            }}
+          ></TextInput>
+
+          <Text
+            style={{
+              fontFamily: "Raleway",
+              color: "#ff5e5e",
+              textAlign: "center",
+              marginTop: 15,
+            }}
+          >
+            {error}
+          </Text>
+
+          <TouchableOpacity
+            onPress={() => {
+              price > 0 && discount > 0 && isLetter(price) && isLetter(discount)
+                ? setDiscountedPrice(price - price * (discount / 100))
+                : setError(
+                    "Price and Discount should between 1-100 \n and not be Alphabet"
+                  );
+              price > 0 && discount > 0 && isLetter(price) && isLetter(discount)
+                ? setButtonPressed(true)
+                : console.log("Do Nothing");
+            }}
+          >
+            <Text
+              style={{
+                borderWidth: 2,
+                marginTop: 10,
+                padding: 10,
+                color: "white",
+                backgroundColor: "#e89302",
+                borderRadius: 15,
+                fontSize: 20,
+                fontFamily: "Raleway",
+                textAlign: "center",
               }}
             >
-              <Text style={{ color: "white" }}>OK</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
+              Calculate
+            </Text>
+          </TouchableOpacity>
 
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={Platform.OS == "ios" ? 0 : 20}
-        enabled={Platform.OS === "ios" ? true : false}
-      >
-        <Text
-          style={{
-            fontSize: 40,
-            margin: 30,
-            color: "white",
-            fontFamily: "KaushanScript",
-          }}
-        >
-          Save Discounts
-        </Text>
+          <TouchableOpacity
+            onPress={() => {
+              price > 0 && discount > 0 && discount < 100  && isLetter(price) && isLetter(discount)
+                ? setHistory([
+                    ...history,
+                    {
+                      Price: { price },
+                      DiscountedPrice: { discountedPrice },
+                      Discount: { discount },
+                    },
+                  ])
+                : console.log("");
 
-        <Text style={styles.calculatedText}>
-          {" "}
-          You Saved{" "}
-          <Text style={{ color: "white" }}>
-            {" "}
-            Rs:{" "}
-            {buttonPressed === true
-              ? parseFloat((price - discountedPrice).toFixed(4))
-              : "0.00"}{" "}
-          </Text>
-        </Text>
-
-        <Text style={styles.calculatedText}>
-          {" "}
-          Final Price{" "}
-          <Text style={{ color: "orange" }}>
-            {" "}
-            Rs:{" "}
-            {buttonPressed === true
-              ? parseFloat(discountedPrice.toFixed(4))
-              : "0.00"}{" "}
-          </Text>
-        </Text>
-
-        <TextInput
-          placeholder="Original Price "
-          placeholderTextColor="#c4c4c4"
-          style={{
-            fontFamily: "Raleway",
-            color: "white",
-            padding: 10,
-            paddingLeft: 20,
-            marginTop: 40,
-            borderWidth: 2,
-            width: 300,
-            marginBottom: 20,
-            borderRadius: 20,
-            fontSize: 15,
-            borderColor: "white",
-          }}
-          onChangeText={(value) => {
-            setPrice(value);
-            setError("");
-            setButtonPressed(false);
-            return;
-          }}
-        ></TextInput>
-        <TextInput
-          placeholder="Discount %"
-          placeholderTextColor="#c4c4c4"
-          style={{
-            fontFamily: "Raleway",
-            color: "white",
-            padding: 10,
-            paddingLeft: 20,
-            borderWidth: 2,
-            width: 300,
-            borderRadius: 20,
-            fontSize: 15,
-            borderColor: "white",
-          }}
-          onChangeText={(value) => {
-            setDiscount(value);
-            setButtonPressed(false);
-            setError("");
-            return;
-          }}
-        ></TextInput>
-
-        <Text
-          style={{
-            fontFamily: "Raleway",
-            color: "#ff5e5e",
-            textAlign: "center",
-            marginTop: 15,
-          }}
-        >
-          {error}
-        </Text>
-
-        <TouchableOpacity
-          onPress={() => {
-            price > 0 && discount > 0 && isLetter(price) && isLetter(discount)
-              ? setDiscountedPrice(price - price * (discount / 100))
-              : setError(
-                  "Price and Discount should be greater then 0\n and not be Alphabet"
-                );
-            price > 0 && discount > 0 && isLetter(price) && isLetter(discount)
-              ? setButtonPressed(true)
-              : console.log("Do Nothing");
-          }}
-        >
-          <Text
-            style={{
-              borderWidth: 2,
-              marginTop: 10,
-              padding: 10,
-              color: "white",
-              backgroundColor: "#e89302",
-              borderRadius: 15,
-              fontSize: 20,
-              fontFamily: "Raleway",
-              textAlign: "center",
+              setModalVisible(true);
             }}
           >
-            Calculate
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={{
+                borderWidth: 2,
+                marginTop: 10,
+                padding: 10,
+                color: "#e89302",
+                borderColor: "#e89302",
+                borderRadius: 15,
+                fontSize: 20,
+                fontFamily: "Raleway",
+                width: 115,
+                textAlign: "center",
+              }}
+            >
+              {" "}
+              Save
+            </Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => {
-            price > 0 && discount > 0 && isLetter(price) && isLetter(discount)
-              ? setHistory([
-                  ...history,
-                  {
-                    Price: { price },
-                    DiscountedPrice: { discountedPrice },
-                    Discount: { discount },
-                  },
-                ])
-              : console.log("");
-
-            setModalVisible(true);
-          }}
-        >
-          <Text
-            style={{
-              borderWidth: 2,
-              marginTop: 10,
-              padding: 10,
-              color: "#e89302",
-              borderColor: "#e89302",
-              borderRadius: 15,
-              fontSize: 20,
-              fontFamily: "Raleway",
-              width: 115,
-              textAlign: "center",
-            }}
-          >
-            {" "}
-            Save
-          </Text>
-        </TouchableOpacity>
-
- 
-
-        <StatusBar style="auto" />
-      </KeyboardAvoidingView>
-    </>
-  );
-        }
+          <StatusBar style="auto" />
+        </KeyboardAvoidingView>
+      </>
+    );
+  }
 }
 
 function History({ route, navigation }) {
@@ -351,33 +341,30 @@ function History({ route, navigation }) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
- <TouchableOpacity
+        <TouchableOpacity
           style={{
-            backgroundColor: 'black',
-            
+            backgroundColor: "black",
+
             width: 90,
             height: 35,
             borderRadius: 15,
-            justifyContent: 'center',
+            justifyContent: "center",
             marginTop: 10,
             padding: 5,
-
-
           }}
           activeOpacity={0.5}
           onPress={() => {
             setHistory([]);
             setTempHistory([]);
           }}
-               
         >
-          <Text
-            style={{ fontSize: 14, color: 'white', alignSelf: 'center', }}
-          >Clear</Text>
-        </TouchableOpacity>      ),
+          <Text style={{ fontSize: 14, color: "white", alignSelf: "center" }}>
+            Clear
+          </Text>
+        </TouchableOpacity>
+      ),
     });
-  }, );
-  
+  });
 
   return (
     <>
@@ -473,7 +460,6 @@ function History({ route, navigation }) {
                 height: 635,
                 width: 412,
                 backgroundColor: "white",
-                
               }}
               data={tempHistory}
               renderItem={({ item, index }) => {
@@ -517,7 +503,6 @@ function History({ route, navigation }) {
 
         <Text
           style={{
-            
             fontSize: 12,
             color: "orange",
             borderWidth: 1,
@@ -528,7 +513,6 @@ function History({ route, navigation }) {
         >
           Tap to delete any record
         </Text>
-
       </View>
     </>
   );
