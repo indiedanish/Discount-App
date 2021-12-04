@@ -25,6 +25,31 @@ function isLetter(str) {
   else return true;
 }
 
+
+<Text
+onPress={() =>
+  navigation.navigate("History", {
+    historyTemp: history,
+    historyObj: { history, setHistory },
+  })
+}
+style={{
+  borderWidth: 2,
+  marginTop: 40,
+  padding: 10,
+  color: "white",
+  borderColor: "black",
+  backgroundColor: "#e89302",
+  borderRadius: 15,
+  fontSize: 15,
+  fontFamily: "Raleway",
+  width: 300,
+  textAlign: "center",
+}}
+>
+History
+</Text>
+
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
@@ -33,7 +58,18 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ headerShown: false }}
+          options={{
+            title: "Home",
+            headerStyle: {
+              backgroundColor: "#e89302",
+            },
+            headerTitleStyle: {
+              color: "white",
+              fontFamily: "Raleway",
+            },
+          }}
+
+
         />
 
         <Stack.Screen
@@ -56,6 +92,36 @@ export default function App() {
 }
 
 function HomeScreen({ navigation }) {
+
+    React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+ <TouchableOpacity
+          style={{
+            backgroundColor: 'black',
+            
+            width: 90,
+            height: 35,
+            borderRadius: 15,
+            justifyContent: 'center',
+            marginTop: 10,
+            padding: 5,
+
+
+          }}
+          activeOpacity={0.5}
+          onPress={() => navigation.navigate("History", {
+            historyTemp: history,
+            historyObj: { history, setHistory },
+          })}
+               
+        >
+          <Text
+            style={{ fontSize: 14, color: 'white', alignSelf: 'center', }}
+          >History</Text>
+        </TouchableOpacity>      ),
+    });
+  }, );
   const [price, setPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [discountedPrice, setDiscountedPrice] = useState(0);
@@ -74,6 +140,8 @@ function HomeScreen({ navigation }) {
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {
+
+    
 
   return (
 
@@ -259,29 +327,7 @@ function HomeScreen({ navigation }) {
           </Text>
         </TouchableOpacity>
 
-        <Text
-          onPress={() =>
-            navigation.navigate("History", {
-              historyTemp: history,
-              historyObj: { history, setHistory },
-            })
-          }
-          style={{
-            borderWidth: 2,
-            marginTop: 40,
-            padding: 10,
-            color: "white",
-            borderColor: "black",
-            backgroundColor: "#e89302",
-            borderRadius: 15,
-            fontSize: 15,
-            fontFamily: "Raleway",
-            width: 300,
-            textAlign: "center",
-          }}
-        >
-          History
-        </Text>
+ 
 
         <StatusBar style="auto" />
       </KeyboardAvoidingView>
@@ -301,6 +347,37 @@ function History({ route, navigation }) {
     setTempHistory(tempHistory.filter((item, i) => (i != index ? item : null)));
     setHistory(history.filter((item, i) => (i != index ? item : null)));
   };
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+ <TouchableOpacity
+          style={{
+            backgroundColor: 'black',
+            
+            width: 90,
+            height: 35,
+            borderRadius: 15,
+            justifyContent: 'center',
+            marginTop: 10,
+            padding: 5,
+
+
+          }}
+          activeOpacity={0.5}
+          onPress={() => {
+            setHistory([]);
+            setTempHistory([]);
+          }}
+               
+        >
+          <Text
+            style={{ fontSize: 14, color: 'white', alignSelf: 'center', }}
+          >Clear</Text>
+        </TouchableOpacity>      ),
+    });
+  }, );
+  
 
   return (
     <>
@@ -371,7 +448,7 @@ function History({ route, navigation }) {
           behavior={Platform.OS == "ios" ? "padding" : "height"}
           keyboardVerticalOffset={Platform.OS == "ios" ? 0 : 20}
           enabled={Platform.OS === "ios" ? true : false}
-          style={{ height: 300, width: 412, marginBottom: 340 }}
+          style={{ height: 300, width: 412, marginBottom: 400 }}
         >
           <DataTable>
             <DataTable.Header style={{ borderWidth: 0.5 }}>
@@ -393,9 +470,10 @@ function History({ route, navigation }) {
               style={{
                 borderBottomLeftRadius: 50,
                 borderBottomRightRadius: 50,
-                height: 570,
+                height: 635,
                 width: 412,
                 backgroundColor: "white",
+                
               }}
               data={tempHistory}
               renderItem={({ item, index }) => {
@@ -439,7 +517,7 @@ function History({ route, navigation }) {
 
         <Text
           style={{
-            marginBottom: 20,
+            
             fontSize: 12,
             color: "orange",
             borderWidth: 1,
@@ -450,32 +528,7 @@ function History({ route, navigation }) {
         >
           Tap to delete any record
         </Text>
-        <TouchableOpacity
-          onPress={() => {
-            setHistory([]);
-            setTempHistory([]);
-          }}
-        >
-          <Text
-            style={{
-              borderWidth: 2,
 
-              marginBottom: 20,
-              padding: 10,
-              color: "white",
-              backgroundColor: "#e89302",
-              borderColor: "#e89302",
-              fontFamily: "Raleway",
-
-              alignItems: "center",
-              textAlign: "center",
-              width: 300,
-              borderRadius: 15,
-            }}
-          >
-            Clear
-          </Text>
-        </TouchableOpacity>
       </View>
     </>
   );
