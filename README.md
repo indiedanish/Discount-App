@@ -1,5 +1,5 @@
 ﻿# Discount App 📱
- # Download App from here 👉 [Discount App](https://drive.google.com/file/d/1EryqsF6TT0SQHgUDAjeZv8tQuKRGUyK_/view?usp=sharing)
+ # Download App from here 👉 [Discount App](https://drive.google.com/file/d/1dsZDE5ySQKILxMXRde6or1pnD1xalWKb/view?usp=sharing)
  ## Use of Discount App: 
 When we go out for shopping especially when there is sale on different shops and outlets. Most of the times, discount percentage is specified along with original price. Every time we need to calculate the price after discount, and we do this repeatedly for each item on sale.
 

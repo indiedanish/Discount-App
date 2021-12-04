@@ -1,6 +1,8 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useFonts } from "expo-font";
+
+import AppLoading from 'expo-app-loading';
 
 import { DataTable } from "react-native-paper";
 import {
@@ -69,7 +71,13 @@ function HomeScreen({ navigation }) {
     Raleway: require("./assets/fonts/Raleway-Regular.ttf"),
   });
 
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+
   return (
+
+
     <>
       {fontsLoaded}
 
@@ -279,6 +287,7 @@ function HomeScreen({ navigation }) {
       </KeyboardAvoidingView>
     </>
   );
+        }
 }
 
 function History({ route, navigation }) {
