@@ -21,10 +21,6 @@ import {
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-function isLetter(str) {
-  if (str.length === 1 && str.match(/[a-z]/i)) return false;
-  else return true;
-}
 
 <Text
   onPress={() =>
@@ -133,6 +129,11 @@ function HomeScreen({ navigation }) {
 
     Raleway: require("./assets/fonts/Raleway-Regular.ttf"),
   });
+
+  function isLetter(str) {
+    if (str.length === 1 && str.match(/[a-z]/i)) return false;
+    else return true;
+  }
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -286,7 +287,11 @@ function HomeScreen({ navigation }) {
 
           <TouchableOpacity
             onPress={() => {
-              price > 0 && discount > 0 && discount < 100  && isLetter(price) && isLetter(discount)
+              price > 0 &&
+              discount > 0 &&
+              discount < 100 &&
+              isLetter(price) &&
+              isLetter(discount)
                 ? setHistory([
                     ...history,
                     {
